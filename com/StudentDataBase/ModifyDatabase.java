@@ -95,5 +95,20 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
+    public static void deleteStudent(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Student ID to delete:");
+        int id = sc.nextInt();
+        try{
+            String query = "DELETE FROM students WHERE id = ?;";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,id);
+            int rows = ps.executeUpdate();
+            System.out.println(rows+" rows deleted");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }
