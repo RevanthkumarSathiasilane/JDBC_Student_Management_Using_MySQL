@@ -4,7 +4,7 @@ import java.util.*;
 public class ModifyDatabase {
     public static Connection con;
 
-    public static void connectDB() {
+    public void connectDB() {
         try {
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/studentdb",
@@ -17,7 +17,7 @@ public class ModifyDatabase {
         }
     }
 
-    public static void insertStudent() {
+    public void insertStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter student ID:");
         int id = sc.nextInt();
@@ -29,7 +29,7 @@ public class ModifyDatabase {
         System.out.println("Enter Student Mark:");
         double mark = sc.nextDouble();
         try {
-            String query = "INSERT INTO students VALUES(?,?,?);";
+            String query = "INSERT INTO students VALUES(?,?,?,?);";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ps.setString(2, name);
@@ -41,7 +41,7 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-    public static void viewStudents(){
+    public void viewStudents(){
         try{
             String query = "SELECT * FROM students;";
             Statement st = con.createStatement();
@@ -57,7 +57,7 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-    public static void searchByID(){
+    public void searchByID(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Stundent ID to view :");
         int id = sc.nextInt();
@@ -65,7 +65,7 @@ public class ModifyDatabase {
             String query = "SELECT * FROM students WHERE id = ?;";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery(query);
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 System.out.println("ID: "+rs.getInt(1));
                 System.out.println("Name: "+rs.getString(2));
@@ -77,7 +77,7 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-    public static void updateMark(){
+    public void updateMark(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Student ID:");
         int id = sc.nextInt();
@@ -86,8 +86,8 @@ public class ModifyDatabase {
         try{
             String query = "UPDATE students SET mark = ? WHERE id = ?;";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setDouble(4,mark);
-            ps.setInt(1,id);
+            ps.setDouble(1,mark);
+            ps.setInt(2,id);
             int rows = ps.executeUpdate();
             System.out.println(rows+" rows updated");
 
@@ -95,7 +95,7 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-    public static void deleteStudent(){
+    public void deleteStudent(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Student ID to delete:");
         int id = sc.nextInt();
@@ -109,20 +109,20 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-    public static void viewOnlyNames(){
+    public void viewOnlyNames(){
         String query = "SELECT name from students;";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                System.out.println("Name:" + rs.getString(2));
+                System.out.println("Name:" + rs.getString(1));
             }
             System.out.println("Name printed");
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }
-    public static void viewAboveSpecificMark(){
+    public void viewAboveSpecificMark(){
         try{
             String query = "SELECT * FROM students WHERE mark >= 80";
             Statement st = con.createStatement();
@@ -138,17 +138,17 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-   public static void countStudents(){
+   public void countStudents(){
         try{
             String query = "SELECT COUNT(*) FROM students;";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            System.out.println("No.of Records: "+rs.toString());
+            System.out.println("No.of Records: "+rs.getInt(1));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
    }
-   public static void sortByMarks(){
+   public void sortByMarks(){
         try{
             String query = "SELECT * FROM students ORDER BY mark ASC;";
             Statement st = con.createStatement();
@@ -164,5 +164,4 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
    }
-
 }
