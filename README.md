@@ -39,7 +39,7 @@ This project demonstrates the implementation of:
 | JDBC | Database Connectivity |
 | MySQL | Database Management |
 | SQL | Database Queries |
-| IntelliJ IDEA / Eclipse | IDE |
+| IntelliJ IDEA  | IDE |
 
 ---
 
