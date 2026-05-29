@@ -86,8 +86,8 @@ public class ModifyDatabase {
         try{
             String query = "UPDATE students SET mark = ? WHERE id = ?;";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setDouble(1,mark);
-            ps.setInt(2,id);
+            ps.setDouble(4,mark);
+            ps.setInt(1,id);
             int rows = ps.executeUpdate();
             System.out.println(rows+" rows updated");
 
@@ -109,6 +109,18 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-
+    public static void viewOnlyNames(){
+        String query = "SELECT name from students;";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                System.out.println("Name:" + rs.getString(2));
+            }
+            System.out.println("Name printed");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
 }
