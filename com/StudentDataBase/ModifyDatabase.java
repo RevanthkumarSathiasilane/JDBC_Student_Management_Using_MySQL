@@ -41,5 +41,21 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
-    public static void
+    public static void viewStudents(){
+        try{
+            String query = "SELECT * FROM students;";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                System.out.println("Id: "+rs.getInt(1));
+                System.out.println("Name: "+rs.getString(2));
+                System.out.println("Age: "+rs.getInt(3));
+                System.out.println("Mark: "+rs.getDouble(4));
+            }
+            System.out.println("All student details!!");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
