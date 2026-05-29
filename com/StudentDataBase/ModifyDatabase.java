@@ -138,6 +138,16 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
+   public static void countStudents(){
+        try{
+            String query = "SELECT COUNT(*) FROM students;";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            System.out.println("No.of Records: "+rs.toString());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+   }
 
 
 }
