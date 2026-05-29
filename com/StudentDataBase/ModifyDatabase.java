@@ -57,5 +57,25 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
+    public static void searchByID(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Stundent ID to view :");
+        int id = sc.nextInt();
+        try{
+            String query = "SELECT * FROM students WHERE id = ?;";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery(query);
+            while(rs.next()){
+                System.out.println("ID: "+rs.getInt(1));
+                System.out.println("Name: "+rs.getString(2));
+                System.out.println("Age: "+rs.getInt(3));
+                System.out.println("Mark: "+rs.getDouble(4));
+            }
+            System.out.println("Selected the Id- "+ id +" you gave to recover");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
 }
