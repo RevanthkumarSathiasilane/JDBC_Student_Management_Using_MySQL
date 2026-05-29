@@ -77,5 +77,23 @@ public class ModifyDatabase {
             System.out.println(e.getMessage());
         }
     }
+    public static void updateMark(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Student ID:");
+        int id = sc.nextInt();
+        System.out.println("Enter New mark :");
+        double mark = sc.nextDouble();
+        try{
+            String query = "UPDATE students SET mark = ? WHERE id = ?;";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setDouble(1,mark);
+            ps.setInt(2,id);
+            int rows = ps.executeUpdate();
+            System.out.println(rows+" rows updated");
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
 }
